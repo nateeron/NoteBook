@@ -55,6 +55,8 @@
             this.txt_shearch = new System.Windows.Forms.TextBox();
             this.bt_clearShearch = new System.Windows.Forms.Button();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.label7 = new System.Windows.Forms.Label();
+            this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -348,6 +350,7 @@
             this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panel1.BackColor = System.Drawing.Color.DarkSlateGray;
+            this.panel1.Controls.Add(this.label7);
             this.panel1.Location = new System.Drawing.Point(-3, -2);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(863, 36);
@@ -391,6 +394,17 @@
             this.panel2.Size = new System.Drawing.Size(213, 27);
             this.panel2.TabIndex = 16;
             // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label7.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(208)))), ((int)(((byte)(208)))), ((int)(((byte)(208)))));
+            this.label7.Location = new System.Drawing.Point(8, 11);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(47, 17);
+            this.label7.TabIndex = 3;
+            this.label7.Text = "V.0.1.2";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -426,6 +440,8 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Form1";
             this.Text = "NoteBook";
+            this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
             this.ResumeLayout(false);
@@ -461,5 +477,6 @@
         private TextBox txt_shearch;
         private Button bt_clearShearch;
         private Panel panel2;
+        private Label label7;
     }
 }

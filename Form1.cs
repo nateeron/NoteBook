@@ -534,9 +534,10 @@ namespace NoteBook
 
                 string selectedGroupName = select_Group.Text;
                 int? select_GroupID = GetSelectedGroupID();
-
+                List<string> gn = CheckDataGroupName(selectedGroupName);
                 // If no group was selected, insert a new group
-                if (select_GroupID == null)
+                int sd = gn.Count();
+                if (select_GroupID == null && sd == 0)
                 {
                     // Optionally prompt for a group name or use a default value
                     select_GroupID = InsertGroupNotebook(selectedGroupName);
@@ -605,14 +606,40 @@ namespace NoteBook
             Debug.WriteLine("select_Group_SelectedIndexChanged..............");
         }
 
+        public List<string> CheckDataGroupName(string groupName)
+        {
+            List<string> list = new List<string>();
 
+            using (var connection = new SQLiteConnection(_configuration))
+            {
+                connection.Open();
+                string query = @"SELECT group_name FROM Group_notebook WHERE group_name = @group_name";
+
+                using (var command = new SQLiteCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@group_name", groupName);
+
+                    using (var reader = command.ExecuteReader())  // Use ExecuteReader to read multiple rows
+                    {
+                        while (reader.Read())
+                        {
+                            list.Add(reader.GetString(0));  // Add each group_name to the list
+                        }
+                    }
+                }
+            }
+            return list;  // Return the list of matching group names
+        }
 
         private void list_Group_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (list_Group.SelectedItem != null)
             {
                 bt_add.Text = "Save";
-                select_Group.Text = "";
+                // select_Group.Text = "";
+                Group_s listGroup = new Group_s();
+                listGroup = (Group_s)list_Group.SelectedItem;
+                //select_Group.Text = listGroup.GroupName;
                 txt_id.Clear();
                 // Optionally clear the input fields after insertion
                 txt_Name.Clear();
@@ -620,8 +647,7 @@ namespace NoteBook
                 txt_User.Clear();
                 txt_Pass.Clear();
                 txt_desc.Clear();
-                Group_s listGroup = new Group_s();
-                listGroup = (Group_s)list_Group.SelectedItem;
+               
                 GetSelectListData(listGroup.Id);
             }
         }
@@ -635,6 +661,7 @@ namespace NoteBook
 
         private void reset()
         {
+            select_Group.SelectedIndex= 0;
             bt_add.Text = "Save";
             txt_id.Clear();
             // Optionally clear the input fields after insertion
